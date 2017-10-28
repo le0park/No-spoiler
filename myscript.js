@@ -1,36 +1,38 @@
 var blockArticles =[]; 
 var _list;
 var _list_length;
+var strings = ["라그나로크", "토르", "범죄도시"];
 var regex_Kr = "/[^\uAC00-\uD7AF]+/g";
 window.addEventListener("load", myMain, false);
 function myMain(event){
-    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 7000);
-}
-
-function newsfeedFilter(){
-    var _property = "display";
-    var _value = "none";
-    for (var i=0; i<_list_length; i++){
-        if(equalStringInElement(_list[i], "대나무숲")){
-            _list[i].style.display = "none";
-            console.log(_list[i] + " is hidden. ");
-        }
-    }
+    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 4000);
 }
 
 function checkForNewsfeed_Finish(){
     if( _list = document.querySelectorAll("div.fbUserStory")){
-        // console.log("Is fbUserStory exist? " + 1);
-        // console.log("Length : " +  _list.length);
-        if(_list_length != _list.length){
+        // div.fbUserStory 선택
+        if(_list_length != _list.length){   // 뉴스피드 갱신되었을 때
             _list_length = _list.length;
-            newsfeedFilter();
+            for (var i=0; i<strings.length; i++){
+                newsfeedFilter(strings[i]); // 필터링
+            }
             return true;
         } else {
             return false;
         }
     }
 }
+
+function newsfeedFilter(string){
+    var _property = "display";
+    for (var i=0; i<_list_length; i++){
+        if(equalStringInElement(_list[i], string)){
+            _list[i].style.display = "none";
+            console.log(_list[i] + " is hidden. ");
+        }
+    }
+}
+
 
 function equalStringInElement(element, string){
     // 요소 내의 p 태그 안에 특정 string이 있는 지 판단하는 함수.
