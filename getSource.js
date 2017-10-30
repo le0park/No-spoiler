@@ -24,28 +24,4 @@ function search_movie(){
           }
       }
   }
-
-  /*chrome.extension.onMessage.addListener(function(request, sender) {
-      if (request.action == "getSource") {
-          document.body.innerText = request.source;
-      }
-  });*/
-
-
-
-
-
 window.onload = onWindowLoad;
-
-
-
-
-
-
-
-
-
-
-// function get_source(document_body){
-//     return document_body.innerText;
-// }
