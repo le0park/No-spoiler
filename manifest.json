@@ -20,5 +20,6 @@
     "permissions": [
         "activeTab",
         "tabs", "https://www.facebook.com/*"
-    ]
+    ],
+    "web_accessible_resources": ["no-spoiler-700px.png"]
 }
