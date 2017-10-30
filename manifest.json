@@ -18,6 +18,7 @@
         "default_popup": "popup.html"
     },
     "permissions": [
+        "https://openapi.naver.com/*",
         "activeTab",
         "tabs", "https://www.facebook.com/*"
     ],
