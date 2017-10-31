@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
 
-    "name": "Hello_World",
-    "description": "Print Hello, World! message",
+    "name": "No-spoiler",
+    "description": "Avoids the spoiler of Facebook.",
     "version": "1.0",
     "content_scripts" : [
         {
