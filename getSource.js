@@ -1,14 +1,13 @@
-var xhr = new XMLHttpRequest();
-var clientId = 'z3PC0R7c9QUP9GqOXffK';
-var clientSecret = 'DKRegT6p7Z';
-var resp;
-
 function onWindowLoad() {
   document.getElementById("search").addEventListener("click", search_movie);
 }
 
 function search_movie(){
   var query = document.getElementById('query').value;
+  var xhr = new XMLHttpRequest();
+  var clientId = 'z3PC0R7c9QUP9GqOXffK';
+  var clientSecret = 'DKRegT6p7Z';
+  var resp;
 
   xhr.open("GET", 'https://openapi.naver.com/v1/search/movie.json' + '?query=' + query, true);
   xhr.setRequestHeader("X-Naver-Client-Id", clientId);
@@ -19,7 +18,7 @@ function search_movie(){
       if(xhr.readyState == 4 && this.status == 200){
           resp = this.response;
           if (resp !== undefined){
-              document.body.innerText = resp.source;
+              document.body.innerText = resp;
               }
           }
       }

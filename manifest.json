@@ -4,8 +4,6 @@
     "name": "Hello_World",
     "description": "Print Hello, World! message",
     "version": "1.0",
-<<<<<<< HEAD
-=======
     "content_scripts" : [
         {
             "matches" : ["https://www.facebook.com/*"],
@@ -15,7 +13,6 @@
             "run_at" : "document_end"
         }
     ],
->>>>>>> d18af83068c9d3022bc39bded59a6230e8b715e3
     "browser_action": {
         "default_icon": "icon.png",
         "default_popup": "popup.html"
