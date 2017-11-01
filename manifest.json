@@ -8,7 +8,7 @@
         {
             "matches" : ["https://www.facebook.com/*"],
             "js" : [
-                "myscript.js",
+                "myscript.js"
             ],
             "run_at" : "document_end"
         }
@@ -20,7 +20,7 @@
     "permissions": [
         "https://openapi.naver.com/*",
         "activeTab",
-        "tabs", "https://www.facebook.com/*",
+        "tabs", "https://www.facebook.com/*"
     ],
     "web_accessible_resources": ["img/no-spoiler-700px.png"]
 }
