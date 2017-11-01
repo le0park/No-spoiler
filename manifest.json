@@ -9,7 +9,6 @@
             "matches" : ["https://www.facebook.com/*"],
             "js" : [
                 "myscript.js",
-                "jquery-3.2.1.min.js"
             ],
             "run_at" : "document_end"
         }
@@ -22,7 +21,6 @@
         "https://openapi.naver.com/*",
         "activeTab",
         "tabs", "https://www.facebook.com/*",
-        "https://code.jquery.com/jquery-3.1.1.min.js"
     ],
     "web_accessible_resources": ["img/no-spoiler-700px.png"]
 }
