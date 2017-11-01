@@ -9,7 +9,8 @@ function search_movie(){
   var clientSecret = 'DKRegT6p7Z';
   var resp;
 
-  xhr.open("GET", 'https://openapi.naver.com/v1/search/movie.json' + '?query=' + query, true);
+  xhr.open("GET", 'https://openapi.naver.com/v1/search/movie.json' 
+                + '?query=' + encodeURI(query) , true);
   xhr.setRequestHeader("X-Naver-Client-Id", clientId);
   xhr.setRequestHeader("X-Naver-Client-Secret", clientSecret);
   xhr.send();
@@ -23,28 +24,4 @@ function search_movie(){
           }
       }
   }
-
-  /*chrome.extension.onMessage.addListener(function(request, sender) {
-      if (request.action == "getSource") {
-          document.body.innerText = request.source;
-      }
-  });*/
-
-
-
-
-
 window.onload = onWindowLoad;
-
-
-
-
-
-
-
-
-
-
-// function get_source(document_body){
-//     return document_body.innerText;
-// }

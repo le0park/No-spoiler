@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
 
-    "name": "Hello_World",
-    "description": "Print Hello, World! message",
+    "name": "No-spoiler",
+    "description": "Avoids the spoiler of Facebook.",
     "version": "1.0",
     "content_scripts" : [
         {
@@ -14,11 +14,14 @@
         }
     ],
     "browser_action": {
-        "default_icon": "icon.png",
+        "default_icon": "img/icon.png",
         "default_popup": "popup.html"
     },
     "permissions": [
+        "https://openapi.naver.com/*",
         "activeTab",
-        "tabs", "https://www.facebook.com/*"
-    ]
+        "tabs", "https://www.facebook.com/*",
+        "https://code.jquery.com/jquery-3.1.1.min.js"
+    ],
+    "web_accessible_resources": ["img/no-spoiler-700px.png"]
 }

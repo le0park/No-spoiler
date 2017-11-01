@@ -1,36 +1,55 @@
 var blockArticles =[]; 
 var _list;
 var _list_length;
+var strings = ["라그나로크", "토르", "범죄도시"];
 var regex_Kr = "/[^\uAC00-\uD7AF]+/g";
-window.addEventListener("load", myMain, false);
-function myMain(event){
-    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 7000);
+
+var hidden_pic = document.createElement("IMG");
+hidden_pic.setAttribute("src", chrome.extension.getURL('no-spoiler-700px.png'))
+hidden_pic.setAttribute("alt", "영화 스포일러 내용이 있을 수 있습니다!");
+hidden_pic.style.maxHeight = '100%';
+hidden_pic.style.maxWidth = '100%';
+hidden_pic.onclick = function(){
+    hidden_pic.previousElementSibling.style.display = 'block';
 }
 
-function newsfeedFilter(){
-    var _property = "display";
-    var _value = "none";
-    for (var i=0; i<_list_length; i++){
-        if(equalStringInElement(_list[i], "대나무숲")){
-            _list[i].style.display = "none";
-            console.log(_list[i] + " is hidden. ");
-        }
-    }
+window.addEventListener("load", myMain, false);
+
+function myMain(event){
+    // When load is finished,
+    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 2000);
 }
 
 function checkForNewsfeed_Finish(){
+    // check that newsfeed is reloaded
+    // if reloaded, do filtering
     if( _list = document.querySelectorAll("div.fbUserStory")){
-        // console.log("Is fbUserStory exist? " + 1);
-        // console.log("Length : " +  _list.length);
-        if(_list_length != _list.length){
+        // div.fbUserStory 선택
+        if(_list_length != _list.length){   // 뉴스피드 갱신되었을 때
             _list_length = _list.length;
-            newsfeedFilter();
+            for (var i=0; i<strings.length; i++){
+                newsfeedFilter(strings[i]); // 필터링
+            }
             return true;
         } else {
             return false;
         }
     }
 }
+
+function newsfeedFilter(string){
+    // if string that may be filtered is discovered,
+    // the div element is hidden.
+    var _property = "display";
+    for (var i=0; i<_list_length; i++){
+        if(equalStringInElement(_list[i], string)){
+            _list[i].style.display = "none";
+            console.log(_list[i] + " is hidden. ");
+            _list[i].parentElement.appendChild(hidden_pic);
+        }
+    }
+}
+
 
 function equalStringInElement(element, string){
     // 요소 내의 p 태그 안에 특정 string이 있는 지 판단하는 함수.
