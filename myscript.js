@@ -5,26 +5,27 @@ var strings = ["라그나로크", "토르", "범죄도시"];
 var regex_Kr = "/[^\uAC00-\uD7AF]+/g";
 
 var hidden_pic = document.createElement("IMG");
-hidden_pic.setAttribute("src", chrome.extension.getURL('no-spoiler-700px.png'))
+hidden_pic.setAttribute("src", chrome.extension.getURL('img/no-spoiler-700px.png'))
 hidden_pic.setAttribute("alt", "영화 스포일러 내용이 있을 수 있습니다!");
 hidden_pic.style.maxHeight = '100%';
 hidden_pic.style.maxWidth = '100%';
 hidden_pic.onclick = function(){
     hidden_pic.previousElementSibling.style.display = 'block';
+    hidden_pic.style.display = 'none';
 }
 
 window.addEventListener("load", myMain, false);
 
 function myMain(event){
     // When load is finished,
-    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 2000);
+    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 700);
 }
 
 function checkForNewsfeed_Finish(){
     // check that newsfeed is reloaded
     // if reloaded, do filtering
-    if( _list = document.querySelectorAll("div.fbUserStory")){
-        // div.fbUserStory 선택
+    if( _list = document.querySelectorAll("div.userContentWrapper")){
+        // div.userContentWrapper 선택
         if(_list_length != _list.length){   // 뉴스피드 갱신되었을 때
             _list_length = _list.length;
             for (var i=0; i<strings.length; i++){
