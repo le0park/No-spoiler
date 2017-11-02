@@ -1,9 +1,27 @@
 var blockArticles =[]; 
 var _list;
 var _list_length;
-var strings = ["라그나로크", "토르", "범죄도시"];
+var strings = [];
 var regex_Kr = "/[^\uAC00-\uD7AF]+/g";
 
+chrome.storage.local.get('filter', function (result) {
+    var list = result.filter;
+    var s_title = [];
+    var s_actor = [];
+    var s_director = [];
+    if(list != undefined){
+        for (var i=0; i<list.length; i++){
+            var parseObj = JSON.parse(list[i]);
+            var tmp_title = delBtag(parseObj.title);
+            s_title = tmp_title.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            s_actor = parseObj.actor.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            s_director = parseObj.director.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            strings = s_title.concat(s_actor, s_director);  
+            strings  = strings.filter(Boolean);
+        }
+    }
+});
+  
 var hidden_pic = document.createElement("IMG");
 hidden_pic.setAttribute("src", chrome.extension.getURL('img/no-spoiler-700px.png'))
 hidden_pic.setAttribute("alt", "영화 스포일러 내용이 있을 수 있습니다!");
@@ -18,7 +36,7 @@ window.addEventListener("load", myMain, false);
 
 function myMain(event){
     // When load is finished,
-    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 700);
+    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 2000);
 }
 
 function checkForNewsfeed_Finish(){
@@ -57,7 +75,7 @@ function equalStringInElement(element, string){
     var pLists = element.getElementsByTagName("p"); // 요소 내 p 태그 리스트 
     if(pLists.length != 0){ // p 태그가 존재할 때
         for (var i=0; i<pLists.length; i++){
-            var targetStr = pLists[i].innerText.split(/[^\uAC00-\uD7AFa-zA-Z]+/g); // p 내의 string들을 공백 문자를 기준으로 list 저장
+            var targetStr = pLists[i].innerText.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g); // p 내의 string들을 공백 문자를 기준으로 list 저장
             for (var j=0; j<targetStr.length; j++){
                 if(targetStr[j].includes(string)){ // 한 string에 포함 되는지 반복문으로 판별
                     return true;
@@ -70,4 +88,8 @@ function equalStringInElement(element, string){
         return false;
     }
     return false;
+}
+function delBtag(string){
+    var temp = string.substring(3, string.length - 4);
+    return temp;
 }
