@@ -25,6 +25,7 @@ function search_movie(){
           resp = this.response;
           if (resp !== undefined){
             obj = JSON.parse(resp);
+<<<<<<< Updated upstream
             for(i=0; i<obj.total; i++)
             {
                 var tempDiv = document.createElement("div");
@@ -59,11 +60,25 @@ function search_movie(){
                 // //document.body.appendChild(addButton);
                 // document.write('<br/>' + '<br/>');
                 // document.write('</div>');
+=======
+
+            for(i=0;i<obj.total;i++)
+            {
+              document.write('제목 :' + '<a href=""' + obj.items[i].title + '<a/>');
+              document.write('<br/>' + '개봉년도 : ' + obj.items[i].pubDate + '<br/>');
+              document.write('감독 : ' + obj.items[i].director + '<br/>');
+              document.write('배우 : ' + obj.items[i].actor);
+              document.write('<br/>' + '<br/>');
+>>>>>>> Stashed changes
             }
           }
         }
     }
-
-      }
   }
+}
+
+
+
+
+
 window.onload = onWindowLoad;
