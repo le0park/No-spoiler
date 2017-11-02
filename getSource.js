@@ -17,8 +17,8 @@ function onWindowLoad() {
           + '감독 : ' + parseObj.director + '<br/>'
           + '배우 : ' + parseObj.actor
           + '<br/>' + '<br/>';
-          
-        console.log(parseObj); 
+
+        console.log(parseObj);
         document.body.appendChild(element);
       }
     }
@@ -64,11 +64,11 @@ function search_movie() {
                     console.log(result.filter)
                   });
                 });
-              }); 
+              });
             }
             document.body.appendChild(tempDiv);
           }
-          
+
         }
       }
     }
