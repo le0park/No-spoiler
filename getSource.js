@@ -11,6 +11,11 @@ function onWindowLoad() {
       for (var i=0; i<list.length; i++){
         var parseObj = JSON.parse(list[i]);
         var element = document.createElement("div");
+        var removeButton = document.createElement('button');
+        var buttoniocn = document.createElement('i');
+        removeButton.className = "ui icon button";
+        buttoniocn.className = "remove icon";
+        removeButton.appendChild(buttoniocn);
         element.id = "prevent_list" + i;
         element.innerHTML = '제목 :' + '<a href=""' +parseObj.title + '</a>'
           + '<br/>' + '개봉년도 : ' + parseObj.pubDate + '<br/>'
@@ -19,8 +24,44 @@ function onWindowLoad() {
           + '<br/>' + '<br/>';
 
         console.log(parseObj);
-        document.body.appendChild(element);
+        var Ground = document.getElementById("ground");
+        Ground.appendChild(removeButton);
+        Ground.appendChild(element);
+
+      /*  removeButton.onclick = function(){
+          var index = Number(element.id.substring(12));
+          var stringifyObj = JSON.stringify(list[index]);
+          chrome.storage.local.remove(stringifyObj, function(result){
+            var list = result.list;
+            if(list!=undefined)
+            {
+              for(var i=0;i<list.length;i++)
+              {
+                var parseObj = JSON.parse(list[i]);
+                var element = document.createElement("div");
+                var removeButton = document.createElement('button');
+                var buttoniocn = document.createElement('i');
+                removeButton.className = "ui icon button";
+                buttoniocn.className = "remove icon";
+                removeButton.appendChild(buttoniocn);
+                element.id = "prevent_list" + i;
+                element.innerHTML = '제목 :' + '<a href=""' +parseObj.title + '</a>'
+                  + '<br/>' + '개봉년도 : ' + parseObj.pubDate + '<br/>'
+                  + '감독 : ' + parseObj.director + '<br/>'
+                  + '배우 : ' + parseObj.actor
+                  + '<br/>' + '<br/>';
+
+                console.log(parseObj);
+                var Ground = document.getElementById("ground");
+                Ground.appendChild(removeButton);
+                Ground.appendChild(element);
+              }
+            }
+          })
+
+        }*/
       }
+      console.log(list);
     }
   });
 }
@@ -45,7 +86,7 @@ function search_movie() {
           obj = JSON.parse(resp);
 
           for (i = 0; i < obj.display; i++) {
-            var tempDiv = document.createElement("div");
+            var tempDiv = document.createElement("b");
             var keyName = 'list';
             tempDiv.id = 'filter' + i;
             tempDiv.innerHTML = '제목 :' + '<a href=""' + obj.items[i].title + '</a>'
@@ -66,12 +107,18 @@ function search_movie() {
                 });
               });
             }
-            document.body.appendChild(tempDiv);
+            var backGround = document.createElement("div");
+            var backGround2 = document.createElement("div");
+            backGround.className = "ui container";
+            backGround2.className = "ui piled segment";
+            document.body.appendChild(backGround);
+            backGround.appendChild(backGround2);
+            backGround2.appendChild(tempDiv);
           }
-
         }
       }
     }
   }
 }
+
 window.onload = onWindowLoad;
