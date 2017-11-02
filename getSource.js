@@ -16,8 +16,21 @@ function onWindowLoad() {
           + '<br/>' + '개봉년도 : ' + parseObj.pubDate + '<br/>'
           + '감독 : ' + parseObj.director + '<br/>'
           + '배우 : ' + parseObj.actor
+          + '<button id="delete' + i + '">DELETE</button>'
           + '<br/>' + '<br/>';
-          
+        element.querySelector("#delete" + i).onclick = function(){
+          var index = Number(this.id.substring());
+          this.parentElement.style.display = "none";
+          chrome.storage.local.get({ filter: [] }, function (result) {
+            var filterList = result.filter;
+            filterList.splice(index, 1);
+            chrome.storage.local.set({ filter: filterList }, function () {
+              chrome.storage.local.get('filter', function (result) {
+                console.log(result.filter)
+              });
+            });
+          });         
+        };
         console.log(parseObj); 
         document.body.appendChild(element);
       }
