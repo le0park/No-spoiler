@@ -25,18 +25,40 @@ function search_movie(){
           resp = this.response;
           if (resp !== undefined){
             obj = JSON.parse(resp);
-            for(i=0;i<obj.total;i++)
+            for(i=0; i<obj.total; i++)
             {
-              //document.write('제목 : ' + obj.items[i].title + '<br/>');
-              document.write('제목 :' + '<a href=""' + obj.items[i].title + '<a/>');
-              document.write('<br/>' + '개봉년도 : ' + obj.items[i].pubDate + '<br/>');
-              document.write('감독 : ' + obj.items[i].director + '<br/>');
-              document.write('배우 : ' + obj.items[i].actor);
-              //var addButton = document.createElement('button');
-              //var addButtonText = document.createTextNode('Add');
-            //  addButton.appendChild(addButtonText);
-              //document.body.appendChild(addButton);
-              document.write('<br/>' + '<br/>');
+                var tempDiv = document.createElement("div");
+                var keyName = 'list';
+                var tempHash = JSON.stringify(obj.items[i]);
+                tempDiv.id = 'filter';
+                tempDiv.innerHTML = '제목 :' + '<a href=""' + obj.items[i].title + '<a/>'
+                                    + '<br/>' + '개봉년도 : ' + obj.items[i].pubDate + '<br/>'
+                                    + '감독 : ' + obj.items[i].director + '<br/>'
+                                    + '배우 : ' + obj.items[i].actor
+                                    + '<br/>' + '<br/>';
+                tempDiv.onclick = function(){
+                    chrome.storage.local.get({filter:[]}, function(result){
+                        var filterList = result.filter;
+                        filterList.push(tempHash);
+                        chrome.storage.local.set({filter:filterList}, function(){
+                            chrome.storage.local.get('filter', function (result) {
+                                console.log(result.filter)
+                            });
+                        });
+                    });
+                }
+                document.body.appendChild(tempDiv);
+                // //document.write('제목 : ' + obj.items[i].title + '<br/>');
+                // document.write('제목 :' + '<a href=""' + obj.items[i].title + '<a/>');
+                // document.write('<br/>' + '개봉년도 : ' + obj.items[i].pubDate + '<br/>');
+                // document.write('감독 : ' + obj.items[i].director + '<br/>');
+                // document.write('배우 : ' + obj.items[i].actor);
+                // //var addButton = document.createElement('button');
+                // //var addButtonText = document.createTextNode('Add');
+                // //  addButton.appendChild(addButtonText);
+                // //document.body.appendChild(addButton);
+                // document.write('<br/>' + '<br/>');
+                // document.write('</div>');
             }
           }
         }
