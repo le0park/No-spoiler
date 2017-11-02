@@ -19,8 +19,10 @@
     },
     "permissions": [
         "https://openapi.naver.com/*",
+        "https://www.facebook.com/*",
         "activeTab",
-        "tabs", "https://www.facebook.com/*"
+        "tabs",
+        "storage"
     ],
     "web_accessible_resources": ["img/no-spoiler-700px.png"]
 }
