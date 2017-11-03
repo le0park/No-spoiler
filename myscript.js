@@ -12,8 +12,7 @@ chrome.storage.local.get('filter', function (result) {
     if(list != undefined){
         for (var i=0; i<list.length; i++){
             var parseObj = JSON.parse(list[i]);
-            var tmp_title = delBtag(parseObj.title);
-            s_title = tmp_title.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            s_title = parseObj.title.split(/(<b>)|(<\/b>)|[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
             s_actor = parseObj.actor.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
             s_director = parseObj.director.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
             strings = s_title.concat(s_actor, s_director);  
@@ -88,8 +87,4 @@ function equalStringInElement(element, string){
         return false;
     }
     return false;
-}
-function delBtag(string){
-    var temp = string.substring(3, string.length - 4);
-    return temp;
 }
