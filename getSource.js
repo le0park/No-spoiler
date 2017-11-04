@@ -10,18 +10,13 @@ function onWindowLoad() {
     if(list != undefined){
       for (var i=0; i<list.length; i++){
         var parseObj = JSON.parse(list[i]);
-        var element = document.createElement("div");
-        var removeButton = document.createElement('button');
-        var buttoniocn = document.createElement('i');
-        removeButton.className = "ui icon button";
-        buttoniocn.className = "remove icon";
-        removeButton.appendChild(buttoniocn);
+        var element = document.createElement("b");
         element.id = "prevent_list" + i;
         element.innerHTML = '제목 :' + '<a href=""' +parseObj.title + '</a>'
+        + '<button id="delete' + i + '">x</button>'
           + '<br/>' + '개봉년도 : ' + parseObj.pubDate + '<br/>'
           + '감독 : ' + parseObj.director + '<br/>'
           + '배우 : ' + parseObj.actor
-          + '<button id="delete' + i + '">DELETE</button>'
           + '<br/>' + '<br/>';
         element.querySelector("#delete" + i).onclick = function(){
           var index = Number(this.id.substring());
@@ -34,48 +29,11 @@ function onWindowLoad() {
                 console.log(result.filter)
               });
             });
-          });         
+          });
         };
-        console.log(parseObj); 
-        document.body.appendChild(element);
-      /*
         console.log(parseObj);
         var Ground = document.getElementById("ground");
-        Ground.appendChild(removeButton);
         Ground.appendChild(element);
-
-        removeButton.onclick = function(){
-          var index = Number(element.id.substring(12));
-          var stringifyObj = JSON.stringify(list[index]);
-          chrome.storage.local.remove(stringifyObj, function(result){
-            var list = result.list;
-            if(list!=undefined)
-            {
-              for(var i=0;i<list.length;i++)
-              {
-                var parseObj = JSON.parse(list[i]);
-                var element = document.createElement("div");
-                var removeButton = document.createElement('button');
-                var buttoniocn = document.createElement('i');
-                removeButton.className = "ui icon button";
-                buttoniocn.className = "remove icon";
-                removeButton.appendChild(buttoniocn);
-                element.id = "prevent_list" + i;
-                element.innerHTML = '제목 :' + '<a href=""' +parseObj.title + '</a>'
-                  + '<br/>' + '개봉년도 : ' + parseObj.pubDate + '<br/>'
-                  + '감독 : ' + parseObj.director + '<br/>'
-                  + '배우 : ' + parseObj.actor
-                  + '<br/>' + '<br/>';
-
-                console.log(parseObj);
-                var Ground = document.getElementById("ground");
-                Ground.appendChild(removeButton);
-                Ground.appendChild(element);
-              }
-            }
-          })
-
-        }*/
       }
       console.log(list);
     }
