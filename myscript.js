@@ -15,8 +15,8 @@ chrome.storage.local.get('filter', function (result) {
             s_title = parseObj.title.split(/(<b>)|(<\/b>)|[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
             s_actor = parseObj.actor.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
             s_director = parseObj.director.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
-            strings = s_title.concat(s_actor, s_director);  
-            strings  = strings.filter(Boolean);
+            strings.concat(s_title, s_actor, s_director);  
+            strings = strings.filter(Boolean);
         }
     }
 });
