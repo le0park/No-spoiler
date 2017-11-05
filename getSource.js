@@ -63,13 +63,13 @@ function search_movie() {
             var tempDiv = document.createElement("b");
             var keyName = 'list';
             tempDiv.id = 'filter' + i;
-            tempDiv.innerHTML = '제목 :' + '<a href=""' + obj.items[i].title + '</a>'
+            tempDiv.innerHTML = '제목 :' + '<a id=\"add' + i +'" href="popup.html">' + obj.items[i].title + '</a>'
               + '<br/>' + '개봉년도 : ' + obj.items[i].pubDate + '<br/>'
               + '감독 : ' + obj.items[i].director + '<br/>'
               + '배우 : ' + obj.items[i].actor
               + '<br/>' + '<br/>';
-            tempDiv.onclick = function () {
-              var index = Number(this.id.substring(6));
+            tempDiv.querySelector("a").onclick = function () {
+              var index = Number(this.id.substring(4));
               var tempJSON = JSON.stringify(obj.items[index]);
               chrome.storage.local.get({ filter: [] }, function (result) {
                 var filterList = result.filter;
