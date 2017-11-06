@@ -4,23 +4,6 @@ var _list_length;
 var strings = [];
 var regex_Kr = "/[^\uAC00-\uD7AF]+/g";
 
-chrome.storage.local.get('filter', function (result) {
-    var list = result.filter;
-    var s_title = [];
-    var s_actor = [];
-    var s_director = [];
-    if(list != undefined){
-        for (var i=0; i<list.length; i++){
-            var parseObj = JSON.parse(list[i]);
-            s_title = parseObj.title.split(/(<b>)|(<\/b>)|[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
-            s_actor = parseObj.actor.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
-            s_director = parseObj.director.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
-            strings = strings.concat(s_title, s_actor, s_director);  
-            strings = strings.filter(Boolean);
-        }
-    }
-});
-  
 var hidden_pic = document.createElement("IMG");
 hidden_pic.setAttribute("src", chrome.extension.getURL('img/no-spoiler-700px.png'))
 hidden_pic.setAttribute("alt", "영화 스포일러 내용이 있을 수 있습니다!");
@@ -31,13 +14,30 @@ hidden_pic.onclick = function(){
     hidden_pic.style.display = 'none';
 }
 
+chrome.storage.local.get('filter', function (result) {
+    var list = result.filter;
+    var s_title = [];
+    var s_actor = [];
+    var s_director = [];
+    if(list != undefined){
+        for (var i=0; i<list.length; i++){
+            var parseObj = JSON.parse(list[i]);
+            var tempTitle = strip_tag(parseObj.title);
+            s_title = tempTitle.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            s_actor = parseObj.actor.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            s_director = parseObj.director.split(/[^\uAC00-\uD7AFa-zA-Z0-9]+/g);
+            strings = strings.concat(s_title, s_actor, s_director);  
+            strings = strings.filter(Boolean);
+        }
+    }
+});
+  
 window.addEventListener("load", myMain, false);
 
 function myMain(event){
     // When load is finished,
     var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 2000);
 }
-
 function checkForNewsfeed_Finish(){
     // check that newsfeed is reloaded
     // if reloaded, do filtering
@@ -54,7 +54,6 @@ function checkForNewsfeed_Finish(){
         }
     }
 }
-
 function newsfeedFilter(string){
     // if string that may be filtered is discovered,
     // the div element is hidden.
@@ -62,13 +61,11 @@ function newsfeedFilter(string){
     for (var i=0; i<_list_length; i++){
         if(equalStringInElement(_list[i], string)){
             _list[i].style.display = "none";
-            console.log(_list[i] + " is hidden. ");
+            console.log(_list[i] + " is hidden. < string: " + string + " >" );
             _list[i].parentElement.appendChild(hidden_pic);
         }
     }
 }
-
-
 function equalStringInElement(element, string){
     // 요소 내의 p 태그 안에 특정 string이 있는 지 판단하는 함수.
     var pLists = element.getElementsByTagName("p"); // 요소 내 p 태그 리스트 
@@ -87,4 +84,7 @@ function equalStringInElement(element, string){
         return false;
     }
     return false;
+}
+function strip_tag(str){
+    return str.replace(/(<([^>]+)>)/ig,"");
 }
