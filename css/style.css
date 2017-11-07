@@ -1,4 +1,8 @@
 body {
-     width : 300px;
+     width : 345px;
      min-height:300px;
+}
+
+#header {
+    text-align: center;
 }

@@ -12,12 +12,28 @@ function onWindowLoad() {
         var parseObj = JSON.parse(list[i]);
         var element = document.createElement("b");
         element.id = "prevent_list" + i;
-        element.innerHTML = '제목 :' + '<a href=""' +parseObj.title + '</a>'
-        + '<button id="delete' + i + '">x</button>'
-          + '<br/>' + '개봉년도 : ' + parseObj.pubDate + '<br/>'
-          + '감독 : ' + parseObj.director + '<br/>'
-          + '배우 : ' + parseObj.actor
-          + '<br/>' + '<br/>';
+        element.innerHTML = 
+          '<div class="ui card">' +
+            '<div class="content">' +
+              '<i id="delete' + i +'" class="right floated disabled red minus large icon"></i>' +
+              '<div class="header">' + parseObj.title + '</div>' +
+              '<div class="description">' +
+              '개봉년도 : ' + parseObj.pubDate + '<br/>' +
+              '감독 : ' + parseObj.director + 
+              '</div>' +
+            '</div>' +
+            '<div class="extra content">' +
+              '<span class="left floated like">' +
+                '<i class="like icon"></i>' +
+                'Prevent by Spoiler.' +
+              '</span>' +
+            '</div>' + 
+          '</div>';
+
+
+        element.querySelector("#delete" + i).onmouseover = function(){
+          element.querySelector("#delete" + i).className="right floated red minus large icon";
+        };
         element.querySelector("#delete" + i).onclick = function(){
           var index = Number(this.id.substring());
           this.parentElement.style.display = "none";
@@ -63,12 +79,24 @@ function search_movie() {
             var tempDiv = document.createElement("b");
             var keyName = 'list';
             tempDiv.id = 'filter' + i;
-            tempDiv.innerHTML = '제목 :' + '<a id=\"add' + i +'" href="popup.html">' + obj.items[i].title + '</a>'
-              + '<br/>' + '개봉년도 : ' + obj.items[i].pubDate + '<br/>'
-              + '감독 : ' + obj.items[i].director + '<br/>'
-              + '배우 : ' + obj.items[i].actor
-              + '<br/>' + '<br/>';
-            tempDiv.querySelector("a").onclick = function () {
+            tempDiv.innerHTML = 
+              '<div class="ui card">' +
+                '<div class="content">' +
+                  '<div class="header">' + obj.items[i].title + '</div>' +
+                  '<div class="description">' +
+                    '개봉년도 : ' + obj.items[i].pubDate + '<br/>' +
+                    '감독 : ' + obj.items[i].director + '<br/>' +
+                    '배우 : </br> ' + obj.items[i].actor +
+                  '</div>' +
+                '</div>' +
+                '<div id="add' + i +'" class="ui bottom attached button">' +
+                  '<i class="add icon"></i>' +
+                  'Add spoiler' +
+                '</div>' +
+              '</div>';
+    
+          
+            tempDiv.querySelector("#add" + i).onclick = function () {
               var index = Number(this.id.substring(4));
               var tempJSON = JSON.stringify(obj.items[index]);
               chrome.storage.local.get({ filter: [] }, function (result) {
@@ -80,6 +108,7 @@ function search_movie() {
                   });
                 });
               });
+              location.reload();
             }
             var backGround = document.createElement("div");
             var backGround2 = document.createElement("div");
