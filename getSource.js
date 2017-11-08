@@ -13,21 +13,23 @@ function onWindowLoad() {
         var element = document.createElement("b");
         element.id = "prevent_list" + i;
         element.innerHTML = 
-          '<div class="ui card">' +
-            '<div class="content">' +
-              '<i id="delete' + i +'" class="right floated disabled red minus large icon"></i>' +
-              '<div class="header">' + parseObj.title + '</div>' +
-              '<div class="description">' +
-              '개봉년도 : ' + parseObj.pubDate + '<br/>' +
-              '감독 : ' + parseObj.director + 
+          '<div class="ui cards">' +
+            '<div class="card">' +
+              '<div class="content">' +
+                '<i id="delete' + i +'" class="right floated disabled red minus large icon"></i>' +
+                '<div class="header">' + parseObj.title + '</div>' +
+                '<div class="description">' +
+                '개봉년도 : ' + parseObj.pubDate + '<br/>' +
+                '감독 : ' + parseObj.director + 
+                '</div>' +
               '</div>' +
+              '<div class="extra content">' +
+                '<span class="left floated like">' +
+                  '<i class="like icon"></i>' +
+                  'Prevent from Spoiler.' +
+                '</span>' +
+              '</div>' + 
             '</div>' +
-            '<div class="extra content">' +
-              '<span class="left floated like">' +
-                '<i class="like icon"></i>' +
-                'Prevent from Spoiler.' +
-              '</span>' +
-            '</div>' + 
           '</div>';
 
 

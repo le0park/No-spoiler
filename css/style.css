@@ -16,6 +16,10 @@ body {
     height: auto;
 }
 
-#container{
+.ui.container{
+    padding-bottom: 20px;
+}
+
+#uicard{
     padding-bottom: 20px;
 }
