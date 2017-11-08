@@ -1,8 +1,21 @@
 body {
      width : 345px;
-     min-height:200px;
 }
 
 #header {
     text-align: center;
+}
+
+.movie_icon {
+    width : 70px;
+    height : auto;
+}
+
+.mute{
+    width: 60px;
+    height: auto;
+}
+
+#container{
+    padding-bottom: 20px;
 }
