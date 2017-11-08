@@ -25,7 +25,7 @@ function onWindowLoad() {
             '<div class="extra content">' +
               '<span class="left floated like">' +
                 '<i class="like icon"></i>' +
-                'Prevent by Spoiler.' +
+                'Prevent from Spoiler.' +
               '</span>' +
             '</div>' + 
           '</div>';
@@ -34,6 +34,7 @@ function onWindowLoad() {
         element.querySelector("#delete" + i).onmouseover = function(){
           element.querySelector("#delete" + i).className="right floated red minus large icon";
         };
+        
         element.querySelector("#delete" + i).onclick = function(){
           var index = Number(this.id.substring());
           this.parentElement.style.display = "none";
@@ -46,6 +47,7 @@ function onWindowLoad() {
               });
             });
           });
+          location.reload();
         };
         console.log(parseObj);
         var Ground = document.getElementById("ground");
@@ -97,7 +99,7 @@ function search_movie() {
     
           
             tempDiv.querySelector("#add" + i).onclick = function () {
-              var index = Number(this.id.substring(4));
+              var index = Number(this.id.substring(3));
               var tempJSON = JSON.stringify(obj.items[index]);
               chrome.storage.local.get({ filter: [] }, function (result) {
                 var filterList = result.filter;
