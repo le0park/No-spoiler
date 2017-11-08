@@ -36,7 +36,7 @@ window.addEventListener("load", myMain, false);
 
 function myMain(event){
     // When load is finished,
-    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 2000);
+    var jsInitChecktimer = setInterval(checkForNewsfeed_Finish, 1000);
 }
 function checkForNewsfeed_Finish(){
     // check that newsfeed is reloaded
