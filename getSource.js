@@ -12,7 +12,7 @@ function onWindowLoad() {
         var parseObj = JSON.parse(list[i]);
         var element = document.createElement("b");
         element.id = "prevent_list" + i;
-        element.innerHTML = 
+        element.innerHTML =
           '<div class="ui cards">' +
             '<div class="card">' +
               '<div class="content">' +
@@ -20,7 +20,7 @@ function onWindowLoad() {
                 '<div class="header">' + parseObj.title + '</div>' +
                 '<div class="description">' +
                 '개봉년도 : ' + parseObj.pubDate + '<br/>' +
-                '감독 : ' + parseObj.director + 
+                '감독 : ' + parseObj.director +
                 '</div>' +
               '</div>' +
               '<div class="extra content">' +
@@ -28,17 +28,13 @@ function onWindowLoad() {
                   '<i class="like icon"></i>' +
                   'Prevent from Spoiler.' +
                 '</span>' +
-              '</div>' + 
+              '</div>' +
             '</div>' +
           '</div>';
 
 
-        element.querySelector("#delete" + i).onmouseover = function(){
-          element.querySelector("#delete" + i).className="right floated red minus large icon";
-        };
-        
         element.querySelector("#delete" + i).onclick = function(){
-          var index = Number(this.id.substring());
+          var index = Number(this.id.substring(6));
           this.parentElement.style.display = "none";
           chrome.storage.local.get({ filter: [] }, function (result) {
             var filterList = result.filter;
@@ -83,7 +79,7 @@ function search_movie() {
             var tempDiv = document.createElement("b");
             var keyName = 'list';
             tempDiv.id = 'filter' + i;
-            tempDiv.innerHTML = 
+            tempDiv.innerHTML =
               '<div class="ui card">' +
                 '<div class="content">' +
                   '<div class="header">' + obj.items[i].title + '</div>' +
@@ -98,8 +94,8 @@ function search_movie() {
                   'Add spoiler' +
                 '</div>' +
               '</div>';
-    
-          
+
+
             tempDiv.querySelector("#add" + i).onclick = function () {
               var index = Number(this.id.substring(3));
               var tempJSON = JSON.stringify(obj.items[index]);
